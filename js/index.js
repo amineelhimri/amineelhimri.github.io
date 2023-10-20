@@ -4,17 +4,20 @@ const MTime = document.getElementById('MTime');
 const STime = document.getElementById('STime');
 const ETime1 = document.getElementById('ETime1');
 const ETime2 = document.getElementById('ETime2');
+const race = document.getElementById('raceTo');
 
 const player1Value = localStorage.getItem('P_1');
 const player2Value = localStorage.getItem('P_2');
 const matchTimeValue = localStorage.getItem('M_Time');
-const shotTimeValue = localStorage.getItem('S_Time');
-const ExtensionTime = parseInt(localStorage.getItem('E_Time'));
+var shotTimeValue = localStorage.getItem('S_Time');
+var ExtensionTime = parseInt(localStorage.getItem('E_Time'));
+const raceValue = parseInt(localStorage.getItem('raceTo'));
 
 player1.textContent = player1Value;
 player2.textContent = player2Value;
 MTime.textContent = matchTimeValue;
 STime.textContent = shotTimeValue;
+race.textContent = `Race to ${raceValue}`;
 
 localStorage.clear();
 
@@ -39,6 +42,7 @@ var MatchTimePaused = false;
 var ShotTimeLeft = parseInt(shotTimeValue); 
 var interval;
 var interval1;
+var phaseF = false;
 
 function playSound(AudioName){
     let audio = new Audio(AudioName);
@@ -98,7 +102,8 @@ function minusScore(action) {
     }
 }
 plus1.addEventListener("click", function() {
-    if(MatchTimePaused){
+    let stat = parseInt(score1.innerHTML);
+    if(MatchTimePaused && stat < raceValue){
         addScore(score1);
         ExtensionAvailable(ETime1);
         ExtensionAvailable(ETime2);
@@ -107,7 +112,8 @@ plus1.addEventListener("click", function() {
 });
 
 plus2.addEventListener("click", function() {
-    if(MatchTimePaused){
+    let stat = parseInt(score2.innerHTML);
+    if(MatchTimePaused && stat < raceValue){
         addScore(score2);
         ExtensionAvailable(ETime1);
         ExtensionAvailable(ETime2);
@@ -156,6 +162,10 @@ function displayMatchTime(){
     else{
         MTime.textContent = time;
     }
+
+    if(matchTimeLeft <= (1000 * 60 * 10)){
+        phaseF = true;
+    }
 }
 
 function startMatch(){
@@ -182,6 +192,10 @@ pause.addEventListener("click", function() {
         stoppy();
         t2 = 1;
         MatchTimePaused = true;
+        if(phaseF){
+            shotTimeValue = 15;
+            ExtensionTime = 10;
+        }
     }
 })
 
@@ -194,16 +208,17 @@ function displayShotTime(){
     if(ShotTimeLeft == -1){
         TimeIsUp.play();
         clearInterval(interval);
-        ShotTimeAlertIntense.pause();
     }
     else{
         STime.textContent = ShotTimeLeft;
     }
-    if(ShotTimeLeft <= 15 && ShotTimeLeft >= 5){
+    if(ShotTimeLeft == 15){
         ShotTimeAudioAlert.play();
     }
-    if(ShotTimeLeft == 4){
-        ShotTimeAlertIntense.play();
+
+    if(ShotTimeLeft <= 5 && ShotTimeLeft >= 0){
+        ShotTimeAudioAlert.play();
+        console.log('db');
     }
 }
 
@@ -250,4 +265,5 @@ const reset = document.getElementById('reset');
 reset.addEventListener("click", function() {
     window.location.href = "index.html";
 })
+
 
