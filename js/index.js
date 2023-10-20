@@ -158,6 +158,7 @@ function displayMatchTime(){
         t1 = 2;
         stoppy();
         STime.textContent = "0";
+        TimeIsUp.play();
     }
     else{
         MTime.textContent = time;
