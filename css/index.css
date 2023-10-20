@@ -242,15 +242,13 @@ button:active {
 
 
 .d6 {
-    height: 70%;
-    width: 80%;
-    margin: 10% auto;
+    margin: 0 auto;
     background-color: #F1DEDE;
     box-shadow: #422800 0.4vh 0.4vh 0.4vh 0.4vh;
     display: flex;
-    flex-direction: column;
     border-radius: 8%;
-    padding: 5vh 1vh;
+    align-self: center;
+    padding: 3vh 1vh;
 }
 
 .d6 div{
