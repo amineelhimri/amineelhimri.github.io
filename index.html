@@ -32,6 +32,21 @@
                         <!--<option value="Shotout">Shotout</option>-->
                     </select>
                 </div>
+                <div class="d6_d8">
+                    <label for="race">Race to</label>:
+                    <select id="race" names="race">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
                 <div class="d6_d4">
                     <label for="matchTime">Match Time</label>:
                     <select id="matchTime" names="matchTime">
@@ -87,6 +102,7 @@
             const S_Time = document.getElementById('shotTime');
             const E_Time = document.getElementById('E_Time');          
             const comfirm = document.getElementById('Set');
+            const race = document.getElementById('race');
 
             form.addEventListener("submit", function(e) {
                 e.preventDefault();
@@ -95,12 +111,14 @@
                 const matchTime = M_Time.value;
                 const shotTime = S_Time.value;
                 const extension = E_Time.value;
+                const raceTo = race.value;
                 localStorage.clear();
                 localStorage.setItem("P_1", p1);
                 localStorage.setItem("P_2", p2);
                 localStorage.setItem("M_Time", matchTime);
                 localStorage.setItem("S_Time", shotTime);
                 localStorage.setItem("E_Time", extension);
+                localStorage.setItem("raceTo", raceTo);
                 window.location.href = "index1.html";
             })
         </script>
